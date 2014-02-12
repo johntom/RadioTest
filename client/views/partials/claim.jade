@@ -1,0 +1,110 @@
+claim.jade
+style(type="text/css").
+        ul2 {
+            list-style-type: none ;
+            margin: 2px 2px 2px 2px ;
+            padding: 2px 2px 2px 2px ;
+        }
+        ul2:after {
+            clear: both ;
+            content: "" ;
+            display: block ;
+        }
+        li2 {
+            background-color: #F0F0F0 ;
+            border: 1px solid #CCCCCC ;
+            border-radius: 4px 4px 4px 4px ;
+            cursor: pointer ;
+            float: left ;
+            height: 130px ;
+            /*t,r,b,l*/
+            margin: 5px 5px 5px 5px;
+            text-align: left ;
+            width: 220px ;
+            float: left; /* IMPORTANT */
+            list-style-type: none;
+            display: inline; /* IMPORTANT */
+            box-shadow: 5px 5px rgba(0, 0, 0, 0.30);
+        }
+
+        li2.selected {
+            border-color: #CC0000;
+        }
+
+        li2:hover {
+            border-color: #1052ee;
+            /*//#CC0000;*/
+            background-color:#ffff00;
+        }
+
+        li2:hover span.nickname {
+            display: block;
+        }
+
+        .cardHeader {
+            background-color:#027FF4;
+            font-size:14pt;
+            color:white;
+            /*padding:5px;*/
+        }
+        span.name {
+            display: block ;
+            font-size: 14px ;
+            font-weight: bold;
+            margin: 0px 0px 0px 3px;
+            padding: 2px 0px 10px 0px ;
+        }
+        span.nickname {
+            color: #1052ee;
+            /*display: block ;*/
+            /*font-size: 14px ;*/
+        }
+ p
+    #inside
+    #header
+
+
+#main-content
+    .span12
+        div
+            input(type='radio', data-ng-model='color', value="red",ng-change='setcolorx(color)')
+            | Red
+            br
+            input(type='radio', data-ng-model='color', value="green")
+            | Green
+            br
+            input(type='radio',data-ng-model='color', value="blue")
+            | Blue
+            br
+            tt color = {{color | json}}
+            | color: {{color}}
+    .span12
+
+
+            h6 {{adjusterid}}
+            input.search-query(style='width:100px', type='text', ng-model='filterText', placeholder='Filter')
+            span &nbsp;{{claims.length}}&nbsp; Open Claims for {{user.username}}
+
+            span(style='color:white;font-weight:bold')
+                &nbsp;&nbsp;&nbsp;&nbsp;User:&nbsp;
+                span #{username}
+                span #(adjusterid)
+
+
+
+    ul2
+             li2( ng-repeat='claim in claims | filter:filterText')
+                   .cardHeader
+                     a.white(tooltip-placement="bottom", tooltip="Click on Claim# to open dailies. # next to claim shows how many open. Down Icon opens Claim. Card Format: customer,received,ins co,claimant,desc")
+                        | {{claim.CLAIM_NO}}  {{claim.title}}
+                        span(ng-hide='claim.OPEN_CT==0')
+                        |&nbsp;&nbsp;&nbsp;&nbsp;{{claim.OPEN_CT}}
+
+
+                      .pull-right.a.white(ng-click='setCurrentClaimTest(claim)')
+
+                        i.icon-white.icon-circle-arrow-down
+
+                    span.name
+
+                    {{claim.LEGAL_NAME}}

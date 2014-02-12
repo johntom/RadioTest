@@ -1,0 +1,35 @@
+doctype html
+extends layout
+
+
+
+block body
+    body(ng-controller='AppCtrl', data-ng-cloak)
+        #cover(data-ng-hide="appInitialized", data-ng-animate="{ hide: 'fade-hide' }")
+
+        .navbar
+            .navbar-inner
+                .container-fluid
+                    ul.nav
+                        li
+                            img.logo(src="../css/images/people.png")
+                        li
+                            a.navbar-brand(href='#') GTZ
+                        //li(data-access-level='{{ accessLevels.anon }}', active-nav)
+                        //    a(href='/login') Log in
+
+                        li(data-access-level='{{ accessLevels.anon }}', active-nav)
+                            a(href='/') Home
+                        li(data-access-level='{{ accessLevels.anon }}', active-nav)
+                            a(href='/claim') Radio Test
+
+
+
+                    div#userInfo.pull-right(data-access-level='{{ accessLevels.user }}')
+                        | Welcome&nbsp;
+                        strong {{ user.username }}&nbsp;
+                        //strong {{ user.adjusterid }}&nbsp;
+                        span.label(data-ng-class='{"label-info": user.role == userRoles.user, "label-success": user.role == userRoles.admin}') {{ getUserRoleText(user.role) }}
+        .container
+          div(data-ng-view='ng-view')
+          .alert.alert-error(data-ng-bind="error", data-ng-show="error")
